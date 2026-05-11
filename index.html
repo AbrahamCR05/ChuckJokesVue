@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuck Norris Jokes — Activity 12</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --bg: #111010;
+      --surface: #1c1b1b;
+      --border: #2e2c2c;
+      --text: #f0ece6;
+      --muted: #6b6560;
+      --red: #c0392b;
+      --red-dim: rgba(192,57,43,0.12);
+    }
+ 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+ 
+    /* ── HEADER ── */
+    header {
+      background: var(--red);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(0,0,0,.08) 10px,
+        rgba(0,0,0,.08) 20px
+      );
+    }
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: .06em;
+      color: #fff;
+      position: relative;
+      text-shadow: 3px 3px 0 rgba(0,0,0,.3);
+    }
+    header p {
+      color: rgba(255,255,255,.75);
+      font-size: .9rem;
+      margin-top: .5rem;
+      position: relative;
+    }
+ 
+    /* ── MAIN ── */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+ 
+    .count-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--red-dim);
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+    }
+    .count-badge span { font-weight: 600; font-size: .9rem; }
+ 
+    /* ── JOKE LIST ── */
+    .joke-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+ 
+    .joke-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.4rem;
+      transition: border-color .2s, transform .2s;
+      animation: slideIn .35s ease both;
+    }
+ 
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+ 
+    .joke-item:hover {
+      border-left-color: #e74c3c;
+      transform: translateX(4px);
+    }
+ 
+    .joke-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--red);
+      line-height: 1;
+      min-width: 2rem;
+      text-align: center;
+      opacity: .7;
+    }
+ 
+    .joke-text {
+      font-size: .97rem;
+      line-height: 1.75;
+      color: var(--text);
+      padding-top: .3rem;
+    }
+ 
+    /* stagger animation delays */
+    .joke-item:nth-child(1) { animation-delay: .05s; }
+    .joke-item:nth-child(2) { animation-delay: .10s; }
+    .joke-item:nth-child(3) { animation-delay: .15s; }
+    .joke-item:nth-child(4) { animation-delay: .20s; }
+    .joke-item:nth-child(5) { animation-delay: .25s; }
+ 
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: .78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: #c0392b; }
+  </style>
+</head>
+<body>
+ 
+<header>
+  <h1>⚡ Chuck Norris Facts</h1>
+  <p>Activity 12 — Vue.js v-for directive</p>
+</header>
+ 
+<div id="app">
+  <main>
+    <div class="count-badge">
+      <span>{{ chuck.length }}</span> facts loaded
+    </div>
+ 
+    <ul class="joke-list">
+      <li
+        v-for="(joke, index) in chuck"
+        :key="index"
+        class="joke-item"
+      >
+        <div class="joke-number">{{ index + 1 }}</div>
+        <p class="joke-text">{{ joke.value }}</p>
+      </li>
+    </ul>
+  </main>
+</div>
+ 
+<footer>
+  &copy; {{ new Date().getFullYear() }} &nbsp;|&nbsp;
+  <strong>Abraham Cuadras</strong> &nbsp;|&nbsp;
+  Desarrollo Web III &nbsp;|&nbsp; Activity 12
+</footer>
+ 
+<!-- Vue 2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        chuck: [
+          { value: "Chuck Norris can skydive into outer space." },
+          { value: "The chief export of Chuck Norris is pain." },
+          { value: "Chuck Norris doesn't read books. He stares them down until he gets the information he wants." },
+          { value: "Time waits for no man. Unless that man is Chuck Norris." },
+          { value: "If you spell Chuck Norris in Scrabble, you win. Forever." },
+        ]
+      }
+    }
+  })
+</script>
+ 
+</body>
+</html>
+ 
